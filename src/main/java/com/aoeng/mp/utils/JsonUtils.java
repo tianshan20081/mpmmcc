@@ -16,17 +16,17 @@ import com.alibaba.fastjson.JSON;
  */
 public class JsonUtils {
 
-	public static void toJson(Map map, HttpServletResponse resp) {
+	public static void toJson(Map map, HttpServletResponse response) {
 
 		try {
 			String jsonStr = JSON.toJSONString(map);
 			System.out.println(jsonStr);
-			resp.setCharacterEncoding("UTF-8");
-			resp.getWriter().print(jsonStr);
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().print(jsonStr);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			try {
-				resp.getWriter().print("");
+				response.getWriter().print("");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

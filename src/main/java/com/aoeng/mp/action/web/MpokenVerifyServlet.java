@@ -2,7 +2,6 @@ package com.aoeng.mp.action.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,14 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.aoeng.mp.utils.JsonUtils;
+import com.aoeng.mp.bean.MpTextInfo;
 import com.aoeng.mp.utils.SignUtils;
+import com.aoeng.mp.utils.WXBizMsgCrypt;
+import com.aoeng.mp.xmlparser.MpTextInfoParser;
 
 /**
  * Servlet implementation class MpServlet
  */
 @WebServlet("/mpTokenVerify")
-public class MpServlet extends HttpServlet {
+public class MpokenVerifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -28,10 +29,8 @@ public class MpServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// System.out.println("wc6PIO9OVbuP8WQ66Ew7O4");
-		// Map map = req.getParameterMap();
-		// JsonUtils.toJson(map, resp);
+
+		// WXBizMsgCrypt pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
 
 		String signature = req.getParameter("signature");
 		// 时间戳
@@ -46,6 +45,7 @@ public class MpServlet extends HttpServlet {
 		if (SignUtils.checkSignature(signature, timestamp, nonce)) {
 			out.print(echostr);
 		}
+		MpTextInfo info = MpTextInfoParser.parser();
 		out.close();
 		out = null;
 
