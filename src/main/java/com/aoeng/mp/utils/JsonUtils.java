@@ -35,4 +35,10 @@ public class JsonUtils {
 
 	}
 
+	public static String toJsonString(Map map) {
+		// TODO Auto-generated method stub
+		String jsonStr = JSON.toJSONString(map);
+		return jsonStr;
+	}
+
 }

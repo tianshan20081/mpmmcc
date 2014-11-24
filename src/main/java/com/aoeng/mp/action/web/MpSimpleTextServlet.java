@@ -2,6 +2,7 @@ package com.aoeng.mp.action.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.aoeng.mp.utils.JPushUtils;
 import com.aoeng.mp.utils.JsonUtils;
 import com.aoeng.mp.utils.SignUtils;
 
@@ -45,14 +47,13 @@ public class MpSimpleTextServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		// 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
-		if (!SignUtils.checkSignature(signature, timestamp, nonce)) {
-			out.print(echostr);
-		}
-
-		Map map = request.getParameterMap();
-
-		JsonUtils.toJson(map, response);
+		// if (!SignUtils.checkSignature(signature, timestamp, nonce)) {
+		// out.print(echostr);
+		// }
+		Map map = new HashMap<String, String[]>();
+		map.putAll(request.getParameterMap());
+		map.put("requestMethod", request.getRequestURL().toString());
+		JPushUtils.push(JsonUtils.toJsonString(map));
 
 	}
-
 }
