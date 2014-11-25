@@ -2,9 +2,6 @@ package com.aoeng.mp.action.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
-import java.lang.reflect.Field;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,15 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 import com.aoeng.mp.bean.InputMessage;
 import com.aoeng.mp.bean.TextOutputMessage;
 import com.aoeng.mp.enm.MpMsgType;
+import com.aoeng.mp.service.MpService;
+import com.aoeng.mp.service.impl.MpImageServiceImpl;
+import com.aoeng.mp.service.impl.MpLinkServiceImpl;
+import com.aoeng.mp.service.impl.MpLocationServiceImpl;
+import com.aoeng.mp.service.impl.MpMusicServiceImpl;
+import com.aoeng.mp.service.impl.MpTextServiceImpl;
+import com.aoeng.mp.service.impl.MpVideoServiceImpl;
+import com.aoeng.mp.service.impl.MpVoiceServiceImpl;
 import com.aoeng.mp.utils.JPushUtils;
-import com.aoeng.mp.utils.MpTextUtils;
+import com.aoeng.mp.utils.MpRespUtils;
 import com.aoeng.mp.utils.SignUtils;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.core.util.QuickWriter;
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
-import com.thoughtworks.xstream.io.xml.XppDriver;
 
 /**
  * Servlet implementation class MpServlet
@@ -78,10 +79,31 @@ public class MpokenVerifyServlet extends HttpServlet {
 		String msgType = inputMsg.getMsgType();
 		logger(inputMsg.toString());
 		// 根据消息类型获取对应的消息内容
+		MpService mpService = null;
 		if (msgType.equals(MpMsgType.Text.toString())) {
 			// 文本信息
-			MpTextUtils.resp(inputMsg, resp);
+			mpService = new MpTextServiceImpl();
+		} else if (msgType.equals(MpMsgType.Image.toString())) {
+			mpService = new MpImageServiceImpl();
+		} else if (msgType.equals(MpMsgType.Music.toString())) {
+			mpService = new MpMusicServiceImpl();
+		} else if (msgType.equals(MpMsgType.Link.toString())) {
+			mpService = new MpLinkServiceImpl();
+		} else if (msgType.equals(MpMsgType.Location.toString())) {
+			mpService = new MpLocationServiceImpl();
+		} else if (msgType.equals(MpMsgType.Video.toString())) {
+			mpService = new MpVideoServiceImpl();
+		} else if (msgType.equals(MpMsgType.Voice.toString())) {
+			mpService = new MpVoiceServiceImpl();
 		}
+		if (null != mpService) {
+			mpService.resp(inputMsg, resp);
+		} else {
+			TextOutputMessage outPutMsg = MpRespUtils.getOutPutMsg(inputMsg);
+			outPutMsg.setContent("未定义的操作类型");
+			MpRespUtils.writeOut(outPutMsg, resp);
+		}
+
 	}
 
 	private void logger(String string) {

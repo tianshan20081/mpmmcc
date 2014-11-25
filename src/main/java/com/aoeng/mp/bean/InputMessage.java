@@ -56,6 +56,7 @@ public class InputMessage {
 	private String Event;
 	private String EventKey;
 	private String Ticket;
+	private String ThumbMediaId;
 
 	public String getToUserName() {
 		return ToUserName;
@@ -169,22 +170,6 @@ public class InputMessage {
 		Url = url;
 	}
 
-	public String getEvent() {
-		return Event;
-	}
-
-	public void setEvent(String event) {
-		Event = event;
-	}
-
-	public String getEventKey() {
-		return EventKey;
-	}
-
-	public void setEventKey(String eventKey) {
-		EventKey = eventKey;
-	}
-
 	public String getMediaId() {
 		return MediaId;
 	}
@@ -209,6 +194,22 @@ public class InputMessage {
 		Recognition = recognition;
 	}
 
+	public String getEvent() {
+		return Event;
+	}
+
+	public void setEvent(String event) {
+		Event = event;
+	}
+
+	public String getEventKey() {
+		return EventKey;
+	}
+
+	public void setEventKey(String eventKey) {
+		EventKey = eventKey;
+	}
+
 	public String getTicket() {
 		return Ticket;
 	}
@@ -217,11 +218,20 @@ public class InputMessage {
 		Ticket = ticket;
 	}
 
+	public String getThumbMediaId() {
+		return ThumbMediaId;
+	}
+
+	public void setThumbMediaId(String thumbMediaId) {
+		ThumbMediaId = thumbMediaId;
+	}
+
 	@Override
 	public String toString() {
 		return "InputMessage [ToUserName=" + ToUserName + ", FromUserName=" + FromUserName + ", CreateTime=" + CreateTime + ", MsgType=" + MsgType + ", MsgId=" + MsgId + ", Content=" + Content
 				+ ", PicUrl=" + PicUrl + ", LocationX=" + LocationX + ", LocationY=" + LocationY + ", Scale=" + Scale + ", Label=" + Label + ", Title=" + Title + ", Description=" + Description
-				+ ", Url=" + Url + ", MediaId=" + MediaId + ", Format=" + Format + ", Recognition=" + Recognition + ", Event=" + Event + ", EventKey=" + EventKey + ", Ticket=" + Ticket + "]";
+				+ ", Url=" + Url + ", MediaId=" + MediaId + ", Format=" + Format + ", Recognition=" + Recognition + ", Event=" + Event + ", EventKey=" + EventKey + ", Ticket=" + Ticket
+				+ ", ThumbMediaId=" + ThumbMediaId + "]";
 	}
 
 }

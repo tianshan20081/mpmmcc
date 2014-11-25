@@ -25,24 +25,18 @@ package com.aoeng.mp.enm;
  */
 public enum MpMsgType {
 
-    Text("text"),
-    Image("image"),
-    Music("music"),
-    Video("video"),
-    Voice("voice"),
-    Location("location"),
-    Link("link");
-    private String msgType = "";
+	Text("text"), Image("image"), Music("music"), Video("video"), Voice("voice"), Location("location"), Link("link"), Event("event");
+	private String msgType = "";
 
-    MpMsgType(String msgType) {
-        this.msgType = msgType;
-    }
+	MpMsgType(String msgType) {
+		this.msgType = msgType;
+	}
 
-    /**
-     * @return the msgType
-     */
-    @Override
-    public String toString() {
-        return msgType;
-    }
+	/**
+	 * @return the msgType
+	 */
+	@Override
+	public String toString() {
+		return msgType;
+	}
 }
