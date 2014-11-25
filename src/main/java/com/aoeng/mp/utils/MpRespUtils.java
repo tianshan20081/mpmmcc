@@ -45,13 +45,12 @@ public class MpRespUtils {
 			// TODO Auto-generated catch block
 			logger(e.toString());
 		}
-
 	}
 
 	public static void logger(String string) {
 		// TODO Auto-generated method stub
 		System.out.println(string);
-		JPushUtils.push(string);
+		// JPushUtils.push(string);
 	}
 
 	public static TextOutputMessage getOutPutMsg(InputMessage inputMsg) {
@@ -61,5 +60,5 @@ public class MpRespUtils {
 		outputMsg.setToUserName(inputMsg.getFromUserName());
 		return outputMsg;
 	}
-	
+
 }

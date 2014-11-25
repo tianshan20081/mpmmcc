@@ -7,7 +7,7 @@ import com.aoeng.mp.bean.TextOutputMessage;
 import com.aoeng.mp.service.MpService;
 import com.aoeng.mp.utils.MpRespUtils;
 
-public class MpVoiceServiceImpl implements MpService {
+public class MpEventServiceImpl implements MpService {
 
 	@Override
 	public String getContentById(int id) {
@@ -25,12 +25,12 @@ public class MpVoiceServiceImpl implements MpService {
 	public void resp(InputMessage inputMsg, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
 		MpRespUtils.logger(inputMsg.toString());
-		String mediaId = inputMsg.getMediaId();
-		String thumbMediaId = inputMsg.getThumbMediaId();
+		String event = inputMsg.getEvent();
+		String eventKey = inputMsg.getEventKey();
 		// 创建文本发送消息对象
 		TextOutputMessage outputMsg = MpRespUtils.getOutPutMsg(inputMsg);
 
-		outputMsg.setContent(String.format("save Voice ok mediaId : %s thumbMediaId %s ", mediaId, thumbMediaId));
+		outputMsg.setContent(String.format("save event ok event : %s eventKey %s ", event, eventKey));
 		MpRespUtils.writeOut(outputMsg, resp);
 	}
 

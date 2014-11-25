@@ -16,6 +16,7 @@ import com.aoeng.mp.bean.InputMessage;
 import com.aoeng.mp.bean.TextOutputMessage;
 import com.aoeng.mp.enm.MpMsgType;
 import com.aoeng.mp.service.MpService;
+import com.aoeng.mp.service.impl.MpEventServiceImpl;
 import com.aoeng.mp.service.impl.MpImageServiceImpl;
 import com.aoeng.mp.service.impl.MpLinkServiceImpl;
 import com.aoeng.mp.service.impl.MpLocationServiceImpl;
@@ -23,7 +24,6 @@ import com.aoeng.mp.service.impl.MpMusicServiceImpl;
 import com.aoeng.mp.service.impl.MpTextServiceImpl;
 import com.aoeng.mp.service.impl.MpVideoServiceImpl;
 import com.aoeng.mp.service.impl.MpVoiceServiceImpl;
-import com.aoeng.mp.utils.JPushUtils;
 import com.aoeng.mp.utils.MpRespUtils;
 import com.aoeng.mp.utils.SignUtils;
 import com.thoughtworks.xstream.XStream;
@@ -77,7 +77,6 @@ public class MpokenVerifyServlet extends HttpServlet {
 		InputMessage inputMsg = (InputMessage) xs.fromXML(xmlMsg.toString());
 		// 取得消息类型
 		String msgType = inputMsg.getMsgType();
-		logger(inputMsg.toString());
 		// 根据消息类型获取对应的消息内容
 		MpService mpService = null;
 		if (msgType.equals(MpMsgType.Text.toString())) {
@@ -95,6 +94,8 @@ public class MpokenVerifyServlet extends HttpServlet {
 			mpService = new MpVideoServiceImpl();
 		} else if (msgType.equals(MpMsgType.Voice.toString())) {
 			mpService = new MpVoiceServiceImpl();
+		} else if (msgType.equals(MpMsgType.Event.toString())) {
+			mpService = new MpEventServiceImpl();
 		}
 		if (null != mpService) {
 			mpService.resp(inputMsg, resp);
@@ -104,12 +105,6 @@ public class MpokenVerifyServlet extends HttpServlet {
 			MpRespUtils.writeOut(outPutMsg, resp);
 		}
 
-	}
-
-	private void logger(String string) {
-		// TODO Auto-generated method stub
-		System.out.println(string);
-		JPushUtils.push(string);
 	}
 
 }
