@@ -216,7 +216,12 @@ public class InputMessage {
 	public void setTicket(String ticket) {
 		Ticket = ticket;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "InputMessage [ToUserName=" + ToUserName + ", FromUserName=" + FromUserName + ", CreateTime=" + CreateTime + ", MsgType=" + MsgType + ", MsgId=" + MsgId + ", Content=" + Content
+				+ ", PicUrl=" + PicUrl + ", LocationX=" + LocationX + ", LocationY=" + LocationY + ", Scale=" + Scale + ", Label=" + Label + ", Title=" + Title + ", Description=" + Description
+				+ ", Url=" + Url + ", MediaId=" + MediaId + ", Format=" + Format + ", Recognition=" + Recognition + ", Event=" + Event + ", EventKey=" + EventKey + ", Ticket=" + Ticket + "]";
+	}
 
 }

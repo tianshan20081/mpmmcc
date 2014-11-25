@@ -75,4 +75,17 @@ public abstract class OutputMessage implements java.io.Serializable {
 	 * @return 消息类型
 	 */
 	public abstract String getMsgType();
+
+	public void setToUserName(String toUserName) {
+		ToUserName = toUserName;
+	}
+
+	public void setFromUserName(String fromUserName) {
+		FromUserName = fromUserName;
+	}
+
+	public void setCreateTime(Long createTime) {
+		CreateTime = createTime;
+	}
+
 }
