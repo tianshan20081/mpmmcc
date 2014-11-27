@@ -50,7 +50,7 @@ public class MpRespUtils {
 	public static void logger(String string) {
 		// TODO Auto-generated method stub
 		System.out.println(string);
-		// JPushUtils.push(string);
+		JPushUtils.push(string);
 	}
 
 	public static TextOutputMessage getOutPutMsg(InputMessage inputMsg) {
