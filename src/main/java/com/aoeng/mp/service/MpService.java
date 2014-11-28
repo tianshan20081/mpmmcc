@@ -2,7 +2,7 @@ package com.aoeng.mp.service;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.aoeng.mp.bean.InputMessage;
+import com.aoeng.mp.bean.MpInputMsg;
 
 public interface MpService {
 
@@ -10,6 +10,6 @@ public interface MpService {
 
 	String getContentByTitle(String title);
 
-	void resp(InputMessage inputMsg, HttpServletResponse resp);
+	void resp(MpInputMsg inputMsg, HttpServletResponse resp);
 
 }

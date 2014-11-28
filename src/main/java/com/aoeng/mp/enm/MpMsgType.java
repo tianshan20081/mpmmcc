@@ -25,7 +25,7 @@ package com.aoeng.mp.enm;
  */
 public enum MpMsgType {
 
-	Text("text"), Image("image"), Music("music"), Video("video"), Voice("voice"), Location("location"), Link("link"), Event("event");
+	Text("text"), Image("image"), Music("music"), Video("video"), Voice("voice"), Location("location"), Link("link"), Event("event"), NEWS("news");
 	private String msgType = "";
 
 	MpMsgType(String msgType) {
