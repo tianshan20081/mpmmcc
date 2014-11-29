@@ -24,12 +24,10 @@ public class MpEventServiceImpl implements MpService {
 	@Override
 	public void resp(MpInputMsg inputMsg, HttpServletResponse resp) {
 		// TODO Auto-generated method stub
-		MpRespUtils.logger(inputMsg.toString());
 		String event = inputMsg.getEvent();
-		String eventKey = inputMsg.getEventKey();
 		// 创建文本发送消息对象
-
-		String content = String.format("save event ok event : %s eventKey %s ", event, eventKey);
+		// Event 事件类型，subscribe(订阅)、unsubscribe(取消订阅)
+		String content = String.format("save event ok event : %s  ", event);
 		MpRespUtils.writeOut(MpRespUtils.getOutPutTextMsg(inputMsg, content), resp);
 	}
 
