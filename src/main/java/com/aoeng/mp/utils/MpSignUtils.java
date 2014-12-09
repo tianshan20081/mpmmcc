@@ -4,10 +4,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-public class SignUtils {
+public class MpSignUtils {
 
 	// 与接口配置信息中的Token要一致
 	private static String token = "wc6PIO9OVbuP8WQ66Ew7O4";
+
+	private static String encodingaeskey = "3YU3xU7Rq3ZW4MDJwc6PIO9OVbuP8WQ66Ew7O40u1JB";
 
 	/**
 	 * 验证签名
@@ -18,6 +20,9 @@ public class SignUtils {
 	 * @return
 	 */
 	public static boolean checkSignature(String signature, String timestamp, String nonce) {
+		if (StringUtils.isEmpty(signature, timestamp, nonce)) {
+			return false;
+		}
 		String[] arr = new String[] { token, timestamp, nonce };
 		// 将token、timestamp、nonce三个参数进行字典序排序
 		Arrays.sort(arr);
