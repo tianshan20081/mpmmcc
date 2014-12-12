@@ -22,7 +22,6 @@ public class Main {
 			System.out.println("not exists ");
 		}
 		String sql = "select count(*) from mp_text";
-
 		for (int i = 0; i < 100; i++) {
 			Connection conn2 = C3P0Utils.getConnection();
 			System.out.println(conn2);

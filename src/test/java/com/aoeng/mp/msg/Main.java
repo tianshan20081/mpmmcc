@@ -17,9 +17,6 @@ public class Main {
 		String msgSignature = "4cf3d796b59b09714fe7a53dbc24897d5f7e8da6";
 		String timeStamp = "1418111243";
 		String nonce = "1277495855";
-
-		String encrypt = MpMsgCryptUtils.getMsgEncrypt("我是测试数据", timeStamp, nonce);
-		System.out.println(encrypt);
 		MpMsgCryptUtils.getMsgDecode(msgSignature, timeStamp, nonce, postData);
 
 	}
