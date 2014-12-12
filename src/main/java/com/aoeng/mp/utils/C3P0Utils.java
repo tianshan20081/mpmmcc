@@ -3,6 +3,7 @@ package com.aoeng.mp.utils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.sql.DataSource;
 
@@ -21,7 +22,7 @@ public class C3P0Utils {
 		return ds;
 	}
 
-	public static Connection getConnection() throws SQLException {
+	public static Connection getConnection() {
 		try {
 			// 得到当前线程上绑定的连接
 			Connection conn = tl.get();
@@ -73,11 +74,6 @@ public class C3P0Utils {
 		}
 	}
 
-	public static void isHaveTable(String tableName) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public static boolean isExistsTable(String tableName) {
 		// TODO Auto-generated method stub
 		try {
@@ -91,6 +87,23 @@ public class C3P0Utils {
 			JPushUtils.push(e.toString());
 		}
 		return false;
+	}
+
+	/**
+	 * @param ps
+	 */
+	public static void closeStatement(Statement ps) {
+		// TODO Auto-generated method stub
+		if (null != ps) {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				ps = null;
+			}
+		}
 	}
 
 }
