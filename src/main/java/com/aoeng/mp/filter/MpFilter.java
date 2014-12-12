@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.aoeng.mp.utils.MpSignUtils;
 
+
 /**
  * Servlet Filter implementation class MpFilter
  */
@@ -41,17 +42,18 @@ public class MpFilter implements Filter {
 		// place your code here
 		HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
 		String reqAction = httpRequest.getRequestURI();
-		String mpAction = "/mp/mpTokenVerify";
-		if (reqAction.contains(mpAction)) {
+		System.out.println(reqAction);
+		String mpEncode = "/mp/mp_encode";
+		CharSequence mpText = "/mp/mp_text";
+		CharSequence mpBoth = "/mp/mp_both";
+		if (reqAction.contains(mpEncode) || reqAction.contains(mpText) || reqAction.contains(mpBoth)) {
 			String signature = httpRequest.getParameter("signature");
 			// 时间戳
 			String timestamp = httpRequest.getParameter("timestamp");
 			// 随机数
 			String nonce = httpRequest.getParameter("nonce");
 			// 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
-
 			if (MpSignUtils.checkSignature(signature, timestamp, nonce)) {
-
 				System.out.println("signature	" + signature);
 				System.out.println("timestamp	" + timestamp);
 				System.out.println("nonce	" + nonce);
