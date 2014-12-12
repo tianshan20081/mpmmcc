@@ -40,20 +40,15 @@ public class DbInitServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<String, Object>();
-		try {
-			Connection conn = C3P0Utils.getConnection();
-			String tbName = request.getParameter("tbname");
-			boolean isExists = C3P0Utils.isExistsTable(tbName);
-			map.put("request url", request.getRequestURL().toString());
-			map.put("table " + tbName + " is exists ?", isExists ? "exists" : "not exists");
-			map.put("remoteaddr", request.getRemoteAddr());
-			map.put("timemillis", System.currentTimeMillis());
-			map.put("method", request.getMethod());
+		Connection conn = C3P0Utils.getConnection();
+		String tbName = request.getParameter("tbname");
+		boolean isExists = C3P0Utils.isExistsTable(tbName);
+		map.put("request url", request.getRequestURL().toString());
+		map.put("table " + tbName + " is exists ?", isExists ? "exists" : "not exists");
+		map.put("remoteaddr", request.getRemoteAddr());
+		map.put("timemillis", System.currentTimeMillis());
+		map.put("method", request.getMethod());
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			map.put("error", e.toString());
-		}
 		JsonUtils.toJson(map, response);
 		JPushUtils.push(JsonUtils.toJsonString(map));
 	}
