@@ -35,7 +35,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 /**
  * Servlet implementation class MpServlet
  */
-@WebServlet("/mp/mpTokenVerify")
+@WebServlet(name = "mp_encode", urlPatterns = { "/mp/mp_encode" })
 public class MpTokenVerifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -80,35 +80,43 @@ public class MpTokenVerifyServlet extends HttpServlet {
 
 		System.out.println(buffer.toString());
 		JPushUtils.push(buffer.toString());
-		String decodeMsg = MpMsgCryptUtils.getMsgDecode(msgSignature, timeStamp, nonce, xmlMsg.toString());
-		// 将xml内容转换为InputMessage对象
-		MpInputMsg inputMsg = (MpInputMsg) xs.fromXML(decodeMsg);
-		// 取得消息类型
-		String msgType = inputMsg.getMsgType();
-		// 根据消息类型获取对应的消息内容
-		MpService mpService = null;
-		if (msgType.equals(MpMsgType.Text.toString())) {
-			// 文本信息
-			mpService = new MpTextServiceImpl();
-		} else if (msgType.equals(MpMsgType.Image.toString())) {
-			mpService = new MpImageServiceImpl();
-		} else if (msgType.equals(MpMsgType.Music.toString())) {
-			mpService = new MpMusicServiceImpl();
-		} else if (msgType.equals(MpMsgType.Link.toString())) {
-			mpService = new MpLinkServiceImpl();
-		} else if (msgType.equals(MpMsgType.Location.toString())) {
-			mpService = new MpLocationServiceImpl();
-		} else if (msgType.equals(MpMsgType.Video.toString())) {
-			mpService = new MpVideoServiceImpl();
-		} else if (msgType.equals(MpMsgType.Voice.toString())) {
-			mpService = new MpVoiceServiceImpl();
-		} else if (msgType.equals(MpMsgType.Event.toString())) {
-			mpService = new MpEventServiceImpl();
-		}
-		if (null != mpService) {
-			mpService.resp(inputMsg, resp);
-		} else {
-			MpRespUtils.writeOut(MpRespUtils.getOutPutTextMsg(inputMsg, "未定义的操作类型"), resp);
+		String decodeMsg;
+		try {
+			decodeMsg = MpMsgCryptUtils.getMsgDecode(msgSignature, timeStamp, nonce, xmlMsg.toString());
+			JPushUtils.push("微信接收消息解密成功\n" + decodeMsg);
+			// 将xml内容转换为InputMessage对象
+			MpInputMsg inputMsg = (MpInputMsg) xs.fromXML(decodeMsg);
+			// 取得消息类型
+			String msgType = inputMsg.getMsgType();
+			// 根据消息类型获取对应的消息内容
+			MpService mpService = null;
+			if (msgType.equals(MpMsgType.Text.toString())) {
+				// 文本信息
+				mpService = new MpTextServiceImpl();
+			} else if (msgType.equals(MpMsgType.Image.toString())) {
+				mpService = new MpImageServiceImpl();
+			} else if (msgType.equals(MpMsgType.Music.toString())) {
+				mpService = new MpMusicServiceImpl();
+			} else if (msgType.equals(MpMsgType.Link.toString())) {
+				mpService = new MpLinkServiceImpl();
+			} else if (msgType.equals(MpMsgType.Location.toString())) {
+				mpService = new MpLocationServiceImpl();
+			} else if (msgType.equals(MpMsgType.Video.toString())) {
+				mpService = new MpVideoServiceImpl();
+			} else if (msgType.equals(MpMsgType.Voice.toString())) {
+				mpService = new MpVoiceServiceImpl();
+			} else if (msgType.equals(MpMsgType.Event.toString())) {
+				mpService = new MpEventServiceImpl();
+			}
+			if (null != mpService) {
+				mpService.resp(inputMsg, resp);
+			} else {
+				MpRespUtils.writeOut(MpRespUtils.getOutPutTextMsg(inputMsg, "未定义的操作类型"), resp);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			JPushUtils.push("微信信息解密失败");
 		}
 
 	}
