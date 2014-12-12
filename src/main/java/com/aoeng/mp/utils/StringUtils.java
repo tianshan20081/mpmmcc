@@ -20,14 +20,16 @@ public class StringUtils {
 	public static boolean isEmpty(String... params) {
 		// TODO Auto-generated method stub
 		boolean isEmpty = false;
+		if (null == params) {
+			return isEmpty;
+		}
 		for (String string : params) {
 			isEmpty = isEmptys(string);
 			if (isEmpty) {
 				break;
 			}
-			
-		}
 
+		}
 		return isEmpty;
 	}
 

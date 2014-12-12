@@ -11,10 +11,10 @@ public class MpMsgCryptUtils {
 	static WXBizMsgCrypt crypt;
 	private static String appId = "wx5d94a7bcdbe6b9aa";
 	// 与接口配置信息中的Token要一致
-	private static String token = "wc6PIO9OVbuP8WQ66Ew7O4";
+	private static String token = "weichart";
 	static String xmlFormat = "<xml><ToUserName><![CDATA[toUser]]></ToUserName><Encrypt><![CDATA[%1$s]]></Encrypt></xml>";
 
-	private static String encodingAesKey = "3YU3xU7Rq3ZW4MDJwc6PIO9OVbuP8WQ66Ew7O40u1JB";
+	private static String encodingAesKey = "uCTbsrfD5iXNfjIVygtwis8nXNLPSKYozTZhYogd5lA";
 	static {
 		try {
 			crypt = new WXBizMsgCrypt(token, encodingAesKey, appId);
@@ -26,7 +26,6 @@ public class MpMsgCryptUtils {
 
 	public static String getMsgDecode(String msgSignature, String timeStamp, String nonce, String postData) {
 		try {
-			crypt = new WXBizMsgCrypt(token, encodingAesKey, appId);
 			return crypt.decryptMsg(msgSignature, timeStamp, nonce, postData);
 		} catch (AesException e) {
 			// TODO Auto-generated catch block

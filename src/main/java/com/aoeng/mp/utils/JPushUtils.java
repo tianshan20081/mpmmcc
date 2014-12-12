@@ -1,18 +1,12 @@
 package com.aoeng.mp.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import cn.jpush.api.JPushClient;
-import cn.jpush.api.common.resp.APIConnectionException;
-import cn.jpush.api.common.resp.APIRequestException;
 import cn.jpush.api.push.PushResult;
 import cn.jpush.api.push.model.Message;
 import cn.jpush.api.push.model.Platform;
 import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.PushPayload.Builder;
 import cn.jpush.api.push.model.audience.Audience;
-import cn.jpush.api.push.model.notification.Notification;
 
 public class JPushUtils {
 
@@ -36,7 +30,7 @@ public class JPushUtils {
 			// PushResult result = client.sendAndroidMessageWithAlias("title",
 			// jsonString, "admin");
 			// System.out.println(result);
-		} catch (APIConnectionException | APIRequestException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -34,7 +34,7 @@ public class DbUtils {
 			Class.forName(com.mysql.jdbc.Driver.class.getName());
 			Connection connection = DriverManager.getConnection(URL, USERNAME, PWSSWORD);
 			return connection;
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
